@@ -8,5 +8,5 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class ItemToken {
-    String token;
+    private String token;
 }
