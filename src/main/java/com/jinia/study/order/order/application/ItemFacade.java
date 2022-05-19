@@ -7,7 +7,7 @@ import com.jinia.study.order.order.application.port.incomming.item.ItemCommand;
 import com.jinia.study.order.order.application.port.incomming.item.ItemInfo;
 import com.jinia.study.order.order.application.port.incomming.item.ItemQuery;
 import com.jinia.study.order.order.application.port.incomming.item.ItemUseCase;
-import com.jinia.study.order.order.domain.item.ItemToken;
+import com.jinia.study.order.order.domain.item.ItemId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +18,16 @@ public class ItemFacade implements ItemUseCase {
     private final ItemQueries itemQueries;
 
     @Override
-    public String registerItem(ItemCommand.RegisterItem command) {
+    public Long registerItem(ItemCommand.RegisterItem command) {
         // TODO: 2022-05-02 1. 판매자 토큰 검증은 어떻게? 검증이 되었다고 가정? 캐쉬를 통해 검증?
         ItemServiceCommand.RegisterItem itemServiceCmd = ItemServiceCommand.registerItemCmdFrom(command);
-        ItemToken itemToken = itemService.registerItem(itemServiceCmd);
-        return itemToken.getToken();
+        ItemId itemId = itemService.registerItem(itemServiceCmd);
+        return itemId.getId();
     }
 
     @Override
-    public ItemInfo.ItemVO retrieveItemVO(ItemQuery itemQuery) {
-        itemQueries.retrieveItemInfo()
+    public ItemInfo.ItemVO retrieveItemVO(String itemToken) {
+        return null;
     }
+
 }

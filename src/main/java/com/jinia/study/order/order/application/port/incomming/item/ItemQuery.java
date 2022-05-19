@@ -10,7 +10,7 @@ public class ItemQuery {
     @ToString
     @AllArgsConstructor
     public static class RetrieveItem{
-        private String itemToken;
+        private Long itemId;
     }
 
 }

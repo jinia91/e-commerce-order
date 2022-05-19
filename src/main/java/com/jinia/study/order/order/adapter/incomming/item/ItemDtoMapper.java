@@ -10,5 +10,5 @@ import org.mapstruct.*;
 )
 public interface ItemDtoMapper {
     ItemCommand.RegisterItem of(ItemRequest.RegisterItem request);
-    ItemResponse.RegisterItem of(String itemToken);
+    ItemResponse.RegisterItem of(Long itemId);
 }

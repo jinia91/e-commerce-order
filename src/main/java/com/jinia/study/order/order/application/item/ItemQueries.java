@@ -14,7 +14,6 @@ public class ItemQueries {
     private final ItemReaderPort itemReaderPort;
 
     public ItemInfo.ItemVO retrieveItemInfo(ItemServiceQuery.RetrieveItem query) {
-        Optional<Item> item = itemReaderPort.retrieveItem(query.getItemToken());
-
+        return null;
     }
 }

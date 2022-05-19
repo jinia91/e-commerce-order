@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 public class Money {
     private final BigDecimal amount;
 
+    protected Money() {
+    amount = null;
+    }
+
     Money(BigDecimal amount) {
         this.amount = amount;
     }

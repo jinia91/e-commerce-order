@@ -9,6 +9,6 @@ public class ItemResponse {
     @ToString
     @AllArgsConstructor
     public static class RegisterItem {
-        private final String itemToken;
+        private final Long itemId;
     }
 }
