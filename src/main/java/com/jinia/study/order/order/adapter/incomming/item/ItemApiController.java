@@ -22,8 +22,8 @@ public class ItemApiController {
     @PostMapping
     public ResponseEntity<ItemResponse.RegisterItem> registerItem(@RequestBody @Valid ItemRequest.RegisterItem request){
         ItemCommand.RegisterItem command = itemDtoMapper.of(request);
-        String itemToken = itemUseCase.registerItem(command);
-        ItemResponse.RegisterItem response = itemDtoMapper.of(itemToken);
+        Long itemId = itemUseCase.registerItem(command);
+        ItemResponse.RegisterItem response = itemDtoMapper.of(itemId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

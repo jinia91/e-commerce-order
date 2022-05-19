@@ -1,6 +1,6 @@
 package com.jinia.study.order.order.domain.item;
 
-import com.jinia.study.order.order.domain.BasicEntity;
+import com.jinia.study.order.shared.domain.BasicEntity;
 import com.jinia.study.order.order.domain.Money;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +15,8 @@ import javax.persistence.*;
 @Table(name = "items")
 public class Item extends BasicEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
-    @Embedded
-    private ItemToken itemToken;
+    @EmbeddedId
+    private ItemId id;
     @Column(nullable = false)
     private String itemName;
     @Embedded
@@ -40,19 +36,19 @@ public class Item extends BasicEntity {
         private final String description;
     }
 
-    public static Item newOne(String itemName, Money itemPrice, ItemToken itemToken, String sellerToken, String description) {
-        return new Item(itemName,itemPrice, Status.ON_SALE, itemToken, description);
+    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, String sellerToken, String description) {
+        return new Item(itemName,itemPrice, Status.ON_SALE, itemId, description);
     }
 
-    public Item(String itemName, Money itemPrice, Status status, ItemToken itemToken, String description) {
+    public Item(String itemName, Money itemPrice, Status status, ItemId itemId, String description) {
+        if(itemId == null) throw new InvalidParamException("Item.itemId");
         if(StringUtils.isEmpty(itemName)) throw new InvalidParamException("Item.itemName");
         if(status == null) throw new InvalidParamException("Item.itemName");
-        if(itemToken == null) throw new InvalidParamException("Item.itemToken");
 
+        this.id = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.status = status;
-        this.itemToken = itemToken;
         this.description = description;
     }
 }

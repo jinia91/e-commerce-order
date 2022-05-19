@@ -2,7 +2,7 @@ package com.jinia.study.order.order.application.item;
 
 import com.jinia.study.order.order.application.port.incomming.item.ItemCommand;
 import com.jinia.study.order.order.domain.item.Item;
-import com.jinia.study.order.order.domain.item.ItemToken;
+import com.jinia.study.order.order.domain.item.ItemId;
 import com.jinia.study.order.order.domain.Money;
 import lombok.Getter;
 import lombok.ToString;
@@ -31,7 +31,7 @@ public class ItemServiceCommand {
             this.itemDescription = itemDescription;
         }
 
-        public Item toEntity(ItemToken token){
+        public Item toEntity(ItemId token){
             return Item.newOne(
                     this.itemName,
                     this.itemPrice,

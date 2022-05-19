@@ -1,28 +1,23 @@
 package com.jinia.study.order.order.application.item;
 
-import com.jinia.study.order.order.application.port.incomming.item.ItemCommand;
 import com.jinia.study.order.order.application.port.incomming.item.ItemQuery;
-import com.jinia.study.order.order.domain.Money;
-import com.jinia.study.order.order.domain.item.Item;
-import com.jinia.study.order.order.domain.item.ItemToken;
+import com.jinia.study.order.order.domain.item.ItemId;
 import lombok.Getter;
 import lombok.ToString;
-
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 public class ItemServiceQuery {
 
     static public RetrieveItem retrieveItemQueryFrom(ItemQuery.RetrieveItem query){
-        return new RetrieveItem(query.getItemToken());
+        return new RetrieveItem(query.getItemId());
     }
 
     @Getter
     @ToString
     public static class RetrieveItem {
-        private final ItemToken itemToken;
+        private final ItemId itemId;
 
-        private RetrieveItem(String itemToken) {
-            this.itemToken = new ItemToken(itemToken);
+        private RetrieveItem(Long itemId) {
+            this.itemId = new ItemId(itemId);
         }
     }
 }
