@@ -1,19 +1,18 @@
 package com.jinia.study.order.shared.id_generator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
-public class JdbcMachineSequenceAllocator implements MachineSequenceAllocator {
+public class JdbcServerIdAllocator implements ServerIdAllocator {
 
 	private final int machineSequenceBitSize;
 	private JdbcTemplate jdbcTemplate;
 	private PlatformTransactionManager transactionManager;
 
-	public JdbcMachineSequenceAllocator(int machineSequenceBitSize) {
+	public JdbcServerIdAllocator(int machineSequenceBitSize) {
 		this.machineSequenceBitSize = machineSequenceBitSize;
 	}
 

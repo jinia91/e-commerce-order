@@ -1,27 +1,25 @@
 package com.jinia.study.order.shared.id_generator;
 
 public class SnowFlake53 implements IdGenerator {
-
 	private static final int MAX_BIT_SIZE = 53;
 	private static final long BASE_TIMESTAMP = 1652981464342L; // 2022.05.20 : 02:31
 	private static final int TIMESTAMP_BIT_SIZE = 41;
 	private static final int TIMESTAMP_SHIFT = MAX_BIT_SIZE - TIMESTAMP_BIT_SIZE;
 
-	private final int machineSequence;
-	private final int machineSequenceShift;
-	private final int sequenceMask;
+	private final int serverId;
+	private final int serverIdShift;
+	private final int serialNumberMask;
 
 	private long lastTimestamp;
-	private int sequence;
+	private int serialNumber;
 
-	public SnowFlake53(int machineSequence, int machineSequenceBitSize) {
-		this.machineSequence = machineSequence;
-		this.machineSequenceShift = MAX_BIT_SIZE - TIMESTAMP_BIT_SIZE - machineSequenceBitSize;
-
-		int sequenceBitSize = MAX_BIT_SIZE - TIMESTAMP_BIT_SIZE - machineSequenceBitSize;
-		this.sequenceMask = (int) Math.pow(2, sequenceBitSize) - 1;
+	public SnowFlake53(int serverId, int serverIdBitSize) {
+		this.serverId = serverId;
+		this.serverIdShift = MAX_BIT_SIZE - TIMESTAMP_BIT_SIZE - serverIdBitSize;
+		int serialNumberBitSize = MAX_BIT_SIZE - TIMESTAMP_BIT_SIZE - serverIdBitSize;
+		this.serialNumberMask = (int) Math.pow(2, serialNumberBitSize) - 1;
 		this.lastTimestamp = System.currentTimeMillis();
-		this.sequence = 0;
+		this.serialNumber = 0;
 	}
 
 	@Override
@@ -29,24 +27,24 @@ public class SnowFlake53 implements IdGenerator {
 		long timestamp = System.currentTimeMillis();
 
 		if (timestamp < lastTimestamp) {
-			throw new SequenceGeneratorTimestampException();
+			throw new IdGeneratorTimestampException();
 		}
 
 		if (lastTimestamp == timestamp) {
-			sequence = (sequence + 1) & sequenceMask;
+			serialNumber = (serialNumber + 1) & serialNumberMask;
 
-			if (sequence == 0) {
+			if (serialNumber == 0) {
 				timestamp = waitNextTimestamp(lastTimestamp);
 			}
 		} else {
-			sequence = 0;
+			serialNumber = 0;
 		}
 
 		lastTimestamp = timestamp;
 
 		return ((timestamp - BASE_TIMESTAMP) << TIMESTAMP_SHIFT)
-				| machineSequence << machineSequenceShift
-				| sequence;
+				| serverId << serverIdShift
+				| serialNumber;
 	}
 
 	private long waitNextTimestamp(long lastTimestamp) {

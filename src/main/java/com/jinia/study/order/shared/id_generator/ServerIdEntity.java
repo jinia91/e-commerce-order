@@ -5,9 +5,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "machine_sequence")
-public class MachineSequenceEntity {
+@Table(name = "server_sequence_id")
+public class ServerIdEntity {
 	@Id
-	Integer sequence;
+	Integer id;
 }
 
