@@ -36,19 +36,23 @@ public class Item extends BasicEntity {
         private final String description;
     }
 
-    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, String sellerToken, String description) {
+    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, String sellerId, String description) {
         return new Item(itemName,itemPrice, Status.ON_SALE, itemId, description);
     }
 
     public Item(String itemName, Money itemPrice, Status status, ItemId itemId, String description) {
-        if(itemId == null) throw new InvalidParamException("Item.itemId");
-        if(StringUtils.isEmpty(itemName)) throw new InvalidParamException("Item.itemName");
-        if(status == null) throw new InvalidParamException("Item.itemName");
+        validate(itemName, status, itemId);
 
         this.id = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.status = status;
         this.description = description;
+    }
+
+    private void validate(String itemName, Status status, ItemId itemId) {
+        if(itemId == null) throw new InvalidParamException("Item.itemId");
+        if(StringUtils.isEmpty(itemName)) throw new InvalidParamException("Item.itemName");
+        if(status == null) throw new InvalidParamException("Item.itemName");
     }
 }
