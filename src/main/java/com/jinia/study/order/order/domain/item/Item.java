@@ -2,6 +2,7 @@ package com.jinia.study.order.order.domain.item;
 
 import com.jinia.study.order.shared.domain.BasicEntity;
 import com.jinia.study.order.order.domain.Money;
+import com.jinia.study.order.shared.domain.MemberId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class Item extends BasicEntity {
     @Column(nullable = false)
     private Status status;
     private String description;
+    private MemberId sellerId;
 
     @Getter
     @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class Item extends BasicEntity {
         private final String description;
     }
 
-    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, String sellerToken, String description) {
+    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, long sellerId, String description) {
         return new Item(itemName,itemPrice, Status.ON_SALE, itemId, description);
     }
 
