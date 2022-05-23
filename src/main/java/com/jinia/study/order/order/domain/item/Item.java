@@ -38,7 +38,12 @@ public class Item extends BasicEntity {
         private final String description;
     }
 
-    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, long sellerId, String description) {
+    public static Item newOne(String itemName, Money itemPrice, ItemId itemId, String sellerId, String description) {
+        // TODO: 2022-05-23 primitive 값을 컨트롤러단에서 변환해주기 / 어플리케이션에서 변환해주기 / 도메인에서 변환해주기
+        // 과연 어디에서 변환해주는게 좋은설계일까?
+        // 컨트롤러단에서 변환해주면 어플리케이션단에서 비지니스적으로 필요한 타입으로 래핑해서 들어오므로 보다 도메인주소 설계스러운 로직 구현 가능
+        // 도메인단에서 변환해주면 구현이 편리
+        // new MemberId(Long.parseLong(sellerId));
         return new Item(itemName,itemPrice, Status.ON_SALE, itemId, description);
     }
 
