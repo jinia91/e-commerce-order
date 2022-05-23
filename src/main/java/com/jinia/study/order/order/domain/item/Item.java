@@ -2,6 +2,7 @@ package com.jinia.study.order.order.domain.item;
 
 import com.jinia.study.order.shared.domain.BasicEntity;
 import com.jinia.study.order.order.domain.Money;
+import com.jinia.study.order.shared.domain.MemberId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class Item extends BasicEntity {
     @Column(nullable = false)
     private Status status;
     private String description;
+    private MemberId sellerId;
 
     @Getter
     @RequiredArgsConstructor
@@ -37,6 +39,11 @@ public class Item extends BasicEntity {
     }
 
     public static Item newOne(String itemName, Money itemPrice, ItemId itemId, String sellerId, String description) {
+        // TODO: 2022-05-23 primitive 값을 컨트롤러단에서 변환해주기 / 어플리케이션에서 변환해주기 / 도메인에서 변환해주기
+        // 과연 어디에서 변환해주는게 좋은설계일까?
+        // 컨트롤러단에서 변환해주면 어플리케이션단에서 비지니스적으로 필요한 타입으로 래핑해서 들어오므로 보다 도메인주소 설계스러운 로직 구현 가능
+        // 도메인단에서 변환해주면 구현이 편리
+        // new MemberId(Long.parseLong(sellerId));
         return new Item(itemName,itemPrice, Status.ON_SALE, itemId, description);
     }
 
